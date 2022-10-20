@@ -1,3 +1,23 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  // see tailwind.config.js
+
+  .badge-base {
+    @apply inline-flex items-center rounded-2xl font-medium;
+  }
+
+  .badge-gray {
+    @apply bg-gray-100 text-gray-700;
+  }
+
+  .badge-primary {
+    @apply bg-primary-50 text-pimary-700;
+  }
+
+  .badge-sm {
+    @apply h-5.5 px-2 text-xs;
+  }
+}
