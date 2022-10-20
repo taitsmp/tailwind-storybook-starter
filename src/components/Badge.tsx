@@ -30,11 +30,44 @@ const BadgeSizeClasses: Record<BadgeSize, string> = {
 
 // https://stackoverflow.com/questions/71788254/react-18-typescript-children-fc
 
-export const Badge2: React.FC<BadgeProps> = ({}) => {
+export const Badge: React.FC<BadgeProps> = ({
+  variant,
+  size = "md",
+  LeadingIcon,
+  TrailingIcon,
+  className,
+  children,
+}) => {
+  const BadgeVariantClassName = BadgeVariantClasses[variant]; //why caps?
+  const BadgeVariantSizeClassName = BadgeSizeClasses[size];
 
+  return (
+    <div
+      className={classNames(
+        "badge-base",
+        BadgeVariantClassName,
+        BadgeVariantSizeClassName,
+        className,
+      )}
+    >
+      {LeadingIcon ? (
+        <LeadingIcon.type
+          {...LeadingIcon.props}
+          className={classNames("mr-1.5", LeadingIcon.props.className)}
+        />
+      ) : null}
+      {children}
+      {TrailingIcon ? (
+        <TrailingIcon.type
+          {...TrailingIcon.props}
+          className={classNames("mr-1.5", TrailingIcon.props.className)}
+        />
+      ) : null}
+    </div>
+  );
 };
 
-export const Badge = ({ badge }: { badge: IBadge }) => {
+export const BadgeOld = ({ badge }: { badge: IBadge }) => {
   return (
     <div
       className={`${badge.size} ${badge.color} rounded-full inline-flex flex-row`}
