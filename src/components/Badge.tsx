@@ -1,9 +1,9 @@
 import React from "react";
-import { IBadge } from "../@interfaces";
+//import { IBadge } from "../@interfaces";
 import classNames from "classnames";
 
-type BadgeVariant = "gray" | "primary" | "error" | "warning" | "success";
-type BadgeSize = "sm" | "md" | "lg";
+export type BadgeVariant = "gray" | "primary" | "error" | "warning" | "success";
+export type BadgeSize = "sm" | "md" | "lg";
 
 export interface BadgeProps {
   variant: BadgeVariant;
@@ -14,7 +14,7 @@ export interface BadgeProps {
   TrailingIcon?: React.ReactElement;
 }
 
-const BadgeVariantClasses: Record<BadgeVariant, string> = {
+export const BadgeVariantClasses: Record<BadgeVariant, string> = {
   gray: "badge-gray",
   primary: "badge-primary",
   error: "badge-error",
@@ -22,7 +22,7 @@ const BadgeVariantClasses: Record<BadgeVariant, string> = {
   success: "badge-success",
 };
 
-const BadgeSizeClasses: Record<BadgeSize, string> = {
+export const BadgeSizeClasses: Record<BadgeSize, string> = {
   sm: "badge-sm",
   md: "badge-md",
   lg: "badge-lg",
@@ -63,17 +63,6 @@ export const Badge: React.FC<BadgeProps> = ({
           className={classNames("mr-1.5", TrailingIcon.props.className)}
         />
       ) : null}
-    </div>
-  );
-};
-
-export const BadgeOld = ({ badge }: { badge: IBadge }) => {
-  return (
-    <div
-      className={`${badge.size} ${badge.color} rounded-full inline-flex flex-row`}
-    >
-      <div className="">icon here</div>
-      <div>{badge.label}</div>
     </div>
   );
 };

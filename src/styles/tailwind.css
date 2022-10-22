@@ -3,6 +3,10 @@
 @tailwind utilities;
 
 @layer components {
+  .buttonGroup-base {
+    @apply inline-flex rounded-md drop-shadow;
+  }
+
   .badge-base {
     @apply inline-flex items-center rounded-2xl font-medium;
   }

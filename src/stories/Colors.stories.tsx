@@ -2,7 +2,7 @@ import React from "react";
 import { Meta, Story } from "@storybook/react";
 import { StoryLayout } from "../components/StoryLayout";
 
-import { ColorBox } from "..//components/ColorBox";
+import { ColorBox } from "../components/ColorBox";
 
 import { colors, Figma } from "../data";
 
