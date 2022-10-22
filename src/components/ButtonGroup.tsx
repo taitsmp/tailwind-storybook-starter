@@ -52,23 +52,3 @@ export const ButtonGroup = ({
     </>
   );
 };
-
-//mine
-export const ButtonGroup2 = ({ className, buttons, children }: BGProps) => {
-  return (
-    <div className={classNames("buttonGI-base", className)}>
-      {buttons.map((but) => {
-        const { Icon, text, active } = but;
-        <div className={classNames()}>
-          {Icon ? (
-            <Icon.type
-              {...Icon.props}
-              className={classNames("mr-1.5", Icon.props.className)}
-            />
-          ) : null}
-          {text}
-        </div>;
-      })}
-    </div>
-  );
-};
