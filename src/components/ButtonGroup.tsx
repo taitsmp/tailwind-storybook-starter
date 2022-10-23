@@ -1,22 +1,22 @@
-import React from "react";
+import React, { Dispatch, SetStateAction } from "react";
 import classNames from "classnames";
 
-export interface IButtonItem {
-  value: string;
+export interface IButtonItem<T> {
+  value: T;
   content: React.ReactNode;
 }
 
-export interface ButtonGroupProps {
-  options: IButtonItem[];
-  activeOption: string;
-  setActiveOption: (activeOption: string) => void;
+export interface ButtonGroupProps<T> {
+  options: IButtonItem<T>[];
+  activeOption: T;
+  setActiveOption: Dispatch<SetStateAction<T>>;
 }
 
-export const ButtonGroup = ({
+export const ButtonGroup = <T extends unknown>({
   options,
   activeOption,
   setActiveOption,
-}: ButtonGroupProps) => {
+}: ButtonGroupProps<T>) => {
   return (
     <>
       {options.map((option, index) => {
@@ -28,7 +28,7 @@ export const ButtonGroup = ({
               "buttonGI-middle": index !== 0 && index !== options.length - 1,
               "buttonGI-selected": activeOption === option.value,
             })}
-            key={option.value}
+            key={option.value as string}
             onClick={() => setActiveOption(option.value)}
           >
             {option.content}

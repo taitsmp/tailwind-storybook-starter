@@ -23,7 +23,7 @@ const meta: Meta = {
 
 export default meta;
 
-interface Props extends ButtonGroupProps {
+interface Props extends ButtonGroupProps<string> {
   darkMode: boolean;
 }
 
@@ -34,37 +34,26 @@ const StoryButtonGroup: Story<Props> = (args) => {
 
   type ViewOption = "list" | "grid";
 
-  const handleActiveItem = (value: string) => {
-    setActive1(value);
-  };
-
-  const handleActiveItem2 = (value: string) => {
-    setActive2(value);
-  };
-  const handleViewOption = (value: string) => {
-    setView(value as ViewOption);
-  };
-
   return (
     <StoryLayout {...args} className="space-y-4">
       <div>
         <ButtonGroup
           activeOption={active1}
-          setActiveOption={handleActiveItem}
+          setActiveOption={setActive1}
           options={options1}
         ></ButtonGroup>
       </div>
       <div>
         <ButtonGroup
           activeOption={active2}
-          setActiveOption={handleActiveItem2}
+          setActiveOption={setActive2}
           options={options2}
         ></ButtonGroup>
       </div>
       <div>
         <ButtonGroup
           activeOption={view}
-          setActiveOption={handleViewOption}
+          setActiveOption={setView}
           options={[
             {
               content: <FiList size={20} />,
