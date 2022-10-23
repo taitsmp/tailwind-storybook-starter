@@ -12,20 +12,6 @@ export interface ButtonGroupProps {
   setActiveOption: (activeOption: string) => void;
 }
 
-///-mine---
-
-type Button = {
-  text?: string;
-  Icon?: React.ReactElement;
-  active: boolean;
-};
-
-export interface BGProps {
-  buttons: Button[];
-  children: string | React.ReactElement;
-  className?: string;
-}
-
 export const ButtonGroup = ({
   options,
   activeOption,
@@ -39,7 +25,7 @@ export const ButtonGroup = ({
             className={classNames("buttonGI-base", {
               "buttonGI-left": index === 0,
               "buttonGI-right": index === options.length - 1,
-              "buttonGI-middle": index !== 0 && index === options.length - 1,
+              "buttonGI-middle": index !== 0 && index !== options.length - 1,
               "buttonGI-selected": activeOption === option.value,
             })}
             key={option.value}
