@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { Dispatch, SetStateAction, useState } from "react";
 import { Listbox } from "@headlessui/react";
 import classNames from "classnames";
 import { FiCheck, FiChevronDown } from "react-icons/fi";
@@ -12,7 +12,7 @@ export interface IOption {
 export interface SelectProps {
   options: IOption[];
   selectedOption: IOption | undefined;
-  setSelectedOption: (option: string) => void;
+  setSelectedOption: Dispatch<SetStateAction<IOption | undefined>>;
   placeholder?: string;
   LeadingIcon?: React.ReactElement;
   width?: string;
@@ -28,10 +28,7 @@ export const Select = ({
 }: SelectProps) => {
   return (
     <div className={classNames("relative inline-block", width)}>
-      <Listbox
-        value={selectedOption && selectedOption.value}
-        onChange={setSelectedOption}
-      >
+      <Listbox value={selectedOption} onChange={setSelectedOption}>
         {({ open }) => (
           <>
             <Listbox.Button
@@ -49,7 +46,7 @@ export const Select = ({
                   <LeadingIcon.type size={20} className="text-gray-400" />
                 </div>
               ) : null}
-              {selectedOption ? selectedOption : placeholder}
+              {selectedOption ? selectedOption.value : placeholder}
               <FiChevronDown
                 size={20}
                 className={classNames(
@@ -67,7 +64,7 @@ export const Select = ({
                 <Listbox.Option
                   as={React.Fragment}
                   key={option.value}
-                  value={option.value}
+                  value={option}
                 >
                   {({ active, selected }) => (
                     <li
@@ -91,45 +88,5 @@ export const Select = ({
         )}
       </Listbox>
     </div>
-  );
-};
-
-// -------------------------------------------------------------
-
-// --- mine ---
-export interface ISelectOption<T> {
-  id: T;
-  value: React.ReactNode;
-}
-
-export interface ISelectProps<T> {
-  options: ISelectOption<T>[];
-  initial: T | null;
-  emptyButton: React.ReactNode;
-}
-
-export const SelectV1 = <T extends unknown>({
-  options,
-  initial,
-  emptyButton,
-}: ISelectProps<T>) => {
-  const [selected, setSelected] = useState<T | null>(initial);
-
-  return (
-    <Listbox value={selected} onChange={setSelected}>
-      {selected ? (
-        <Listbox.Button>{selected}</Listbox.Button>
-      ) : (
-        <Listbox.Button>{emptyButton}</Listbox.Button>
-      )}
-
-      <Listbox.Options>
-        {options.map((option) => (
-          <Listbox.Option key={option.id as string} value={option}>
-            {option.value}
-          </Listbox.Option>
-        ))}
-      </Listbox.Options>
-    </Listbox>
   );
 };
