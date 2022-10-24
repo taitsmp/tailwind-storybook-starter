@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { Meta, Story } from "@storybook/react";
 import { StoryLayout } from "../components/StoryLayout";
-import { SelectV1, ISelectProps, ISelectOption } from "../components/Select";
+import { Select, SelectProps, IOption } from "../components/Select";
 import { FiDollarSign } from "react-icons/fi";
 import { countries, dates, prices, Figma } from "../data";
 
 const meta: Meta = {
   title: "Select",
-  component: SelectV1,
+  component: Select,
   parameters: {
     controls: {
       expanded: true,
@@ -21,20 +21,9 @@ const meta: Meta = {
 
 export default meta;
 
-interface Props extends ISelectProps<string> {
+interface Props extends SelectProps {
   darkMode: boolean;
 }
-
-const options = [
-  {
-    id: "tl",
-    value: "Tait Larson",
-  },
-  {
-    id: "al",
-    value: "Abby Larson",
-  },
-] as ISelectOption<string>[];
 
 const StorySelect: Story<Props> = (args) => {
   // should the component manage the state?
@@ -44,20 +33,30 @@ const StorySelect: Story<Props> = (args) => {
   const [selectedDate, setSelectedDate] = useState<IOption>();
   const [selectedPrice, setSelectedPrice] = useState<IOption>();
 
+  const handleSelectCountry = (value: string) => {
+    const country = countries.find((p) => p.value == value) as IOption;
+    setSelectedCountry(country);
+  };
+
+  const handleSelectDate = (value: string) => {
+    const date = dates.find((p) => p.value == value) as IOption;
+    setSelectedDate(date);
+  };
+
   return (
     <StoryLayout darkMode={args.darkMode} className={"space-x-3 space-y-3"}>
-      <SelectV1
+      <Select
         options={countries}
         selectedOption={selectedCountry}
-        setSelectedOption={setSelectedCountry}
+        setSelectedOption={handleSelectCountry}
         placeholder="Select a Country"
         width="w-50"
       />
-      <SelectV1
+      <Select
         options={prices}
         LeadingIcon={<FiDollarSign />}
         selectedOption={selectedDate}
-        setSelectedOption={setSelectedDate}
+        setSelectedOption={handleSelectDate}
         placeholder="Select a Date"
         width="w-50"
       />
@@ -66,12 +65,3 @@ const StorySelect: Story<Props> = (args) => {
 };
 
 export const Default = StorySelect.bind({});
-Default.args = {
-  options,
-  initial: null,
-  emptyButton: (
-    <div>
-      <FiDollarSign /> Select a price
-    </div>
-  ),
-};

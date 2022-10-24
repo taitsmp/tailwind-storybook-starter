@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Listbox } from "@headlessui/react";
 import classNames from "classnames";
+
 import { FiCheck, FiChevronDown } from "react-icons/fi";
 
 // I could have imported this. Decided not to. Hoping to make it a generic.
@@ -49,7 +50,7 @@ export const Select = ({
                   <LeadingIcon.type size={20} className="text-gray-400" />
                 </div>
               ) : null}
-              {selectedOption ? selectedOption : placeholder}
+              {selectedOption ? selectedOption.value : placeholder}
               <FiChevronDown
                 size={20}
                 className={classNames(
@@ -91,45 +92,5 @@ export const Select = ({
         )}
       </Listbox>
     </div>
-  );
-};
-
-// -------------------------------------------------------------
-
-// --- mine ---
-export interface ISelectOption<T> {
-  id: T;
-  value: React.ReactNode;
-}
-
-export interface ISelectProps<T> {
-  options: ISelectOption<T>[];
-  initial: T | null;
-  emptyButton: React.ReactNode;
-}
-
-export const SelectV1 = <T extends unknown>({
-  options,
-  initial,
-  emptyButton,
-}: ISelectProps<T>) => {
-  const [selected, setSelected] = useState<T | null>(initial);
-
-  return (
-    <Listbox value={selected} onChange={setSelected}>
-      {selected ? (
-        <Listbox.Button>{selected}</Listbox.Button>
-      ) : (
-        <Listbox.Button>{emptyButton}</Listbox.Button>
-      )}
-
-      <Listbox.Options>
-        {options.map((option) => (
-          <Listbox.Option key={option.id as string} value={option}>
-            {option.value}
-          </Listbox.Option>
-        ))}
-      </Listbox.Options>
-    </Listbox>
   );
 };
